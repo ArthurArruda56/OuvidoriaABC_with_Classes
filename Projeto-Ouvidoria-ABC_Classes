@@ -1,0 +1,87 @@
+manifestacoes = []
+listaTipo = ['Sugestão', 'Reclamação', 'Elogio']
+opcao = -9
+
+class Manifestacao:
+    protocolo = 0
+    nome = ''
+    tipo = 0
+    descricao = ''
+
+while opcao != 7:
+    print(''' Centro universitário ABC
+    Sistema de OUVIDORIA
+    
+    Opções  de interação:
+    1) Abrir todas as manifestações feitas;
+    2) Abrir todas as sugestões feitas;
+    3) Abrir todas as reclamações feitas;
+    4) Abrir todos os elogios feitos;
+    5) Criar e adicionar manifestação;
+    6) Pesquisar manifestação pelo número do protocolo;
+    7) Sair do sistema.''')
+    print()
+    opcao = int(input('Baseado no que está sendo apresentado acima, digite o número correspondente para ter acesso no sistema: '))
+    print()
+    if opcao == 1:
+        print(5 * '=', ' Todas as manifestações feitas no sistema ', 5 * '-=-')
+        for answer in manifestacoes:
+            fullMani = str(answer.protocolo) + '-' + (answer.nome) + '-' + str(answer.tipo) + '-' + (answer.descricao)
+            print(fullMani)
+        print()
+    elif opcao == 2:
+        for answer in manifestacoes:
+            if answer.tipo == listaTipo[0]:
+                fullSugestion = str(answer.protocolo) + '-' + (answer.nome) + '-' + (answer.descricao)
+                print(fullSugestion)
+        print()
+    elif opcao == 3:
+        for answer in manifestacoes:
+            if answer.tipo == listaTipo[1]:
+                fullComplaint = str(answer.protocolo) + '-' + (answer.nome) + '-' + (answer.descricao)
+                print(fullComplaint)
+        print()
+    elif opcao == 4:
+        for answer in manifestacoes:
+            if answer.tipo == listaTipo[2]:
+                fullCompliment = str(answer.protocolo) + '-' + (answer.nome) + '-' + (answer.descricao)
+                print(fullCompliment)
+        print()
+    elif opcao == 5:
+        print(5 * '=', ' Preencha os dados para criar uma nova manifestação ', 5 * '=')
+        print()
+        protocolo = len(manifestacoes) + 1
+        nome = str(input('Digite o nome que irá aparecer na manifestação: '))
+        print()
+        tipo = -1
+        while tipo < 1 or tipo > 3:
+            tipo = int(input('Digite um número correspondente ao tipo escolhido. 1) Sugestão; 2) Reclamação; 3) Elogio: '))
+            if tipo < 1 or tipo > 3:
+                print('O dado {} informado é inválido. Tente novamente.'.format(tipo))
+        print()
+        descricao = str(input('Deescreva a sua manifestação: '))
+        print()
+        novaManifestacao = Manifestacao()
+        novaManifestacao.protocolo = protocolo
+        novaManifestacao.nome = nome
+        novaManifestacao.tipo = listaTipo[tipo - 1]
+        novaManifestacao.descricao = descricao
+        manifestacoes.append(novaManifestacao)
+        print()
+    elif opcao == 6:
+        search = -1
+        numeroManifestacoes = len(manifestacoes)
+        while search < 1 or search > numeroManifestacoes:
+            search = int(input('Digite o número do protocolo da manifestação que você deseja ver: '))
+            if search < 1 or search > numeroManifestacoes:
+                print('Não existe manifestação este número de protocolo.')
+                break
+        for research in manifestacoes:
+            if research.protocolo == search:
+                fullResearch = ('{}\n{}\n{}\n{}\n'.format(str(research.protocolo),  (research.nome), str(research.tipo), (research.descricao)))
+                print(fullResearch)
+        print()
+    elif opcao == 7:
+        print('Saindo do sistema ...')
+    else:
+        print('O dado {} informado é inválido'.format (opcao))
